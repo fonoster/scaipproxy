@@ -2,32 +2,30 @@
  * @author Pedro Sanders
  * @since v1
  */
-const CoreUtils = require('@routr/core/utils')
-const UsersAPI = require('@routr/data_api/users_api')
-const AgentsAPI = require('@routr/data_api/agents_api')
-const DomainsAPI = require('@routr/data_api/domains_api')
-const PeersAPI = require('@routr/data_api/peers_api')
-const GatewaysAPI = require('@routr/data_api/gateways_api')
-const NumbersAPI = require('@routr/data_api/numbers_api')
-const DSSelector = require('@routr/data_api/ds_selector')
-const SDSelector = require('@routr/data_api/store_driver_selector')
-const StoreAPI = require('@routr/data_api/store_api')
-const ConfigAPI = require('@routr/data_api/config_api')
-const DSUtils = require('@routr/data_api/utils')
-const FilesUtil = require('@routr/utils/files_util')
+const CoreUtils = require('@scaipproxy/core/utils')
+const UsersAPI = require('@scaipproxy/data_api/users_api')
+const AgentsAPI = require('@scaipproxy/data_api/agents_api')
+const DomainsAPI = require('@scaipproxy/data_api/domains_api')
+const PeersAPI = require('@scaipproxy/data_api/peers_api')
+const DSSelector = require('@scaipproxy/data_api/ds_selector')
+const SDSelector = require('@scaipproxy/data_api/store_driver_selector')
+const StoreAPI = require('@scaipproxy/data_api/store_api')
+const ConfigAPI = require('@scaipproxy/data_api/config_api')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const FilesUtil = require('@scaipproxy/utils/files_util')
 const System = Java.type('java.lang.System')
-const isEmpty = require('@routr/utils/obj_util')
-const config = require('@routr/core/config_util')()
-const { Status } = require('@routr/core/status')
-const getJWTToken = require('@routr/rest/jwt_token_generator')
-const resourcesService = require('@routr/rest/resources_service')
-const locationService = require('@routr/rest/location_service')
-const parameterAuthFilter = require('@routr/rest/parameter_auth_filter')
-const basicAuthFilter = require('@routr/rest/basic_auth_filter')
+const isEmpty = require('@scaipproxy/utils/obj_util')
+const config = require('@scaipproxy/core/config_util')()
+const { Status } = require('@scaipproxy/core/status')
+const getJWTToken = require('@scaipproxy/rest/jwt_token_generator')
+const resourcesService = require('@scaipproxy/rest/resources_service')
+const locationService = require('@scaipproxy/rest/location_service')
+const parameterAuthFilter = require('@scaipproxy/rest/parameter_auth_filter')
+const basicAuthFilter = require('@scaipproxy/rest/basic_auth_filter')
 const moment = require('moment')
 
-// const LogsHandler = Java.type('io.routr.core.LogsHandler')
-const GRPCClient = Java.type('io.routr.core.GRPCClient')
+// const LogsHandler = Java.type('com.fonoster.scaipproxy.core.LogsHandler')
+const GRPCClient = Java.type('com.fonoster.scaipproxy.core.GRPCClient')
 const Spark = Java.type('spark.Spark')
 const options = Java.type('spark.Spark').options
 const get = Java.type('spark.Spark').get
@@ -160,7 +158,7 @@ class Rest {
           CoreUtils.buildResponse(
             Status.OK,
             null,
-            FilesUtil.readFile(`${home}/logs/routr.log`)
+            FilesUtil.readFile(`${home}/logs/scaipproxy.log`)
           )
         )
       })
@@ -196,32 +194,11 @@ class Rest {
         )
       )
 
-      get('/registry', (req, res) => {
-        const items = this.store
-          .withCollection('registry')
-          .values()
-          .map(r => {
-            const reg = JSON.parse(r)
-            reg.regOnFormatted = moment(reg.registeredOn).fromNow()
-            return reg
-          })
-
-        let page = 1
-        let itemsPerPage = 30
-        if (!isEmpty(req.queryParams('page'))) page = req.queryParams('page')
-        if (!isEmpty(req.queryParams('itemsPerPage')))
-          itemsPerPage = req.queryParams('itemsPerPage')
-
-        return JSON.stringify(DSUtils.paginate(items, page, itemsPerPage))
-      })
-
       locationService(this.store, this.grpc)
 
       resourcesService(new AgentsAPI(ds), 'Agent')
       resourcesService(new PeersAPI(ds), 'Peer')
       resourcesService(new DomainsAPI(ds), 'Domain')
-      resourcesService(new GatewaysAPI(ds), 'Gateway')
-      resourcesService(new NumbersAPI(ds), 'Number')
     })
   }
 

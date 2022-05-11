@@ -2,7 +2,7 @@
  * @author Pedro Sanders
  * @since v1
  */
-const Rule = require('@routr/core/acl/acl_rule')
+const Rule = require('@scaipproxy/core/acl/acl_rule')
 const Long = Java.type('java.lang.Long')
 
 /**

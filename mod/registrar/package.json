@@ -1,5 +1,5 @@
 {
-  "name": "@routr/registrar",
+  "name": "@scaipproxy/registrar",
   "version": "1.0.0",
   "description": "Routr's registrar service",
   "scripts": {

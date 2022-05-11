@@ -3,12 +3,12 @@
  * @since v1
  */
 const postal = require('postal')
-const Registrar = require('@routr/registrar/registrar')
+const Registrar = require('@scaipproxy/registrar/registrar')
 const {
   sendOk,
   sendUnauthorized,
   getExpires
-} = require('@routr/core/processor/processor_utils')
+} = require('@scaipproxy/core/processor/processor_utils')
 
 const ToHeader = Java.type('javax.sip.header.ToHeader')
 const ContactHeader = Java.type('javax.sip.header.ContactHeader')

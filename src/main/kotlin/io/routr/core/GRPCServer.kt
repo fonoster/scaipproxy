@@ -1,9 +1,9 @@
-package io.routr.core
+package com.fonoster.scaipproxy.core
 
 import io.grpc.Server
 import io.grpc.ServerBuilder
 import io.grpc.stub.StreamObserver
-import io.routr.core.ControllerGrpc.ControllerImplBase
+import com.fonoster.scaipproxy.core.ControllerGrpc.ControllerImplBase
 import org.apache.logging.log4j.LogManager
 import org.graalvm.polyglot.Context
 import java.io.IOException

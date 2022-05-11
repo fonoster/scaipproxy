@@ -2,11 +2,11 @@
  * @author Pedro Sanders
  * @since v1
  */
-const CoreUtils = require('@routr/core/utils')
-const DSUtils = require('@routr/data_api/utils')
-const APIBase = require('@routr/data_api/api_base')
-const { Status } = require('@routr/core/status')
-const isEmpty = require('@routr/utils/obj_util')
+const CoreUtils = require('@scaipproxy/core/utils')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const APIBase = require('@scaipproxy/data_api/api_base')
+const { Status } = require('@scaipproxy/core/status')
+const isEmpty = require('@scaipproxy/utils/obj_util')
 const getCacheKey = j => j.metadata.ref
 
 class AgentsAPI extends APIBase {

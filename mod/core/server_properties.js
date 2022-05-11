@@ -11,7 +11,7 @@ module.exports = config => {
   const properties = new Properties()
   // for more options see:
   // https://github.com/RestComm/jain-sip/blob/master/src/gov/nist/javax/sip/SipStackImpl.java
-  properties.setProperty('javax.sip.STACK_NAME', 'routr')
+  properties.setProperty('javax.sip.STACK_NAME', 'scaipproxy')
   properties.setProperty('javax.sip.AUTOMATIC_DIALOG_SUPPORT', 'OFF')
   properties.setProperty(
     'gov.nist.javax.sip.MESSAGE_PROCESSOR_FACTORY',

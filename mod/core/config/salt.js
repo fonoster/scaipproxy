@@ -2,7 +2,7 @@
  * @author Pedro Sanders
  * @since v1
  */
-const FilesUtil = require('@routr/utils/files_util')
+const FilesUtil = require('@scaipproxy/utils/files_util')
 const System = Java.type('java.lang.System')
 const File = Java.type('java.io.File')
 const UUID = Java.type('java.util.UUID')
@@ -13,7 +13,7 @@ function getSalt () {
   const pathToSalt =
     System.getenv('SALT_FILE') !== null
       ? System.getenv('SALT_FILE')
-      : `${System.getProperty('user.dir')}/.routr.salt`
+      : `${System.getProperty('user.dir')}/.scaipproxy.salt`
 
   const f = new File(pathToSalt)
 

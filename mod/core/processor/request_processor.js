@@ -5,15 +5,15 @@
 const {
   sendResponse,
   sendUnauthorized
-} = require('@routr/core/processor/processor_utils')
-const RegisterHandler = require('@routr/core/processor/register_handler')
-const RequestHandler = require('@routr/core/processor/request_handler')
-const config = require('@routr/core/config_util')()
+} = require('@scaipproxy/core/processor/processor_utils')
+const RegisterHandler = require('@scaipproxy/core/processor/register_handler')
+const RequestHandler = require('@scaipproxy/core/processor/request_handler')
+const config = require('@scaipproxy/core/config_util')()
 const FromHeader = Java.type('javax.sip.header.FromHeader')
 const ViaHeader = Java.type('javax.sip.header.ViaHeader')
-const SynthRegistrar = require('@routr/registrar/synth_reg')
-const Registrar = require('@routr/registrar/registrar')
-const Locator = require('@routr/location/locator')
+const SynthRegistrar = require('@scaipproxy/registrar/synth_reg')
+const Registrar = require('@scaipproxy/registrar/registrar')
+const Locator = require('@scaipproxy/location/locator')
 
 const Request = Java.type('javax.sip.message.Request')
 const Response = Java.type('javax.sip.message.Response')
@@ -22,13 +22,14 @@ const LOG = LogManager.getLogger()
 
 // Experimental features
 const isEssenceMessage = r => r.getHeader(FromHeader.NAME).getTag() === '286524'
-const isClimaxDevice = r => r.getHeader(ViaHeader.NAME).getBranch() === 'z9hG4bK-0001'
-const getXMLValue= (tagName, xmlStr) => {
+const isClimaxDevice = r =>
+  r.getHeader(ViaHeader.NAME).getBranch() === 'z9hG4bK-0001'
+const getXMLValue = (tagName, xmlStr) => {
   var tagValue = xmlStr.substring(
-      xmlStr.lastIndexOf(tagName) + tagName.length,
-      xmlStr.lastIndexOf(tagName.replace("<", "</"))
-  );
-  return tagValue;
+    xmlStr.lastIndexOf(tagName) + tagName.length,
+    xmlStr.lastIndexOf(tagName.replace('<', '</'))
+  )
+  return tagValue
 }
 
 class RequestProcessor {
@@ -66,7 +67,10 @@ class RequestProcessor {
       case Request.MESSAGE:
         if (isClimaxDevice(request)) {
           // Get user from payload
-          const user = getXMLValue("<cid>",String.fromCharCode.apply(null, request.getContent()))
+          const user = getXMLValue(
+            '<cid>',
+            String.fromCharCode.apply(null, request.getContent())
+          )
           // Update requrest to allow consistent messaging
           const fromHeader = request.getHeader(FromHeader.NAME)
           const address = fromHeader.getAddress()

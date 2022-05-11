@@ -1,9 +1,9 @@
 {
-  "name": "routr",
+  "name": "scaipproxy",
   "version": "1.0.0",
   "description": "Scaip Proxy Server",
   "scripts": {
-    "clean": "rimraf node_modules build libs .gradle .routr.salt *.dat",
+    "clean": "rimraf node_modules build libs .gradle .scaipproxy.salt *.dat",
     "pack": "./distro.sh",
     "prepack": "",
     "test": "cross-env ./etc/tests/tester2 mod/**/*.unit.test.js",
@@ -56,7 +56,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/fonoster/routr.git"
+    "url": "git://github.com/fonoster/scaipproxy.git"
   },
   "author": "Pedro Sanders",
   "license": "MIT"

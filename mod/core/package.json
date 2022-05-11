@@ -1,5 +1,5 @@
 {
-  "name": "@routr/core",
+  "name": "@scaipproxy/core",
   "version": "1.0.0",
   "description": "Core functionalities for Routr server",
   "scripts": {

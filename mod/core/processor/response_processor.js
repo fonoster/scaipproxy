@@ -2,14 +2,10 @@
  * @author Pedro Sanders
  * @since v1
  */
-const DSSelector = require('@routr/data_api/ds_selector')
-const GatewaysAPI = require('@routr/data_api/gateways_api')
 const {
   isStackJob,
-  isTransactional,
-  mustAuthenticate,
-  handleAuthChallenge
-} = require('@routr/core/processor/processor_utils')
+  isTransactional
+} = require('@scaipproxy/core/processor/processor_utils')
 const ViaHeader = Java.type('javax.sip.header.ViaHeader')
 const SipFactory = Java.type('javax.sip.SipFactory')
 const LogManager = Java.type('org.apache.logging.log4j.LogManager')
@@ -20,22 +16,10 @@ class ResponseProcessor {
   constructor (sipProvider, contextStorage) {
     this.sipProvider = sipProvider
     this.contextStorage = contextStorage
-    this.gatewaysAPI = new GatewaysAPI(DSSelector.getDS())
   }
 
   process (event) {
     if (isStackJob(event.getResponse())) {
-      return
-    }
-    // If it is not transactional and authentication is required it means
-    // that the REGISTER request was originated by another sipStack
-    if (mustAuthenticate(event.getResponse()) && isTransactional(event)) {
-      const gwRef = event
-        .getClientTransaction()
-        .getRequest()
-        .getHeader('X-Gateway-Ref').value
-      const r = this.gatewaysAPI.getGateway(gwRef)
-      handleAuthChallenge(this.sipProvider.getSipStack(), event, r.data)
       return
     }
     this.sendResponse(event)

@@ -1,4 +1,4 @@
-package io.routr.core
+package com.fonoster.scaipproxy.core
 
 import org.apache.logging.log4j.LogManager
 import java.io.IOException

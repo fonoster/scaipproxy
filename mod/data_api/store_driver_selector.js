@@ -1,6 +1,6 @@
-const RedisStore = require('@routr/data_api/redis_store')
-const FilesStore = require('@routr/data_api/files_store')
-const config = require('@routr/core/config_util')()
+const RedisStore = require('@scaipproxy/data_api/redis_store')
+const FilesStore = require('@scaipproxy/data_api/files_store')
+const config = require('@scaipproxy/core/config_util')()
 
 class StoreDriverSelector {
   constructor () {

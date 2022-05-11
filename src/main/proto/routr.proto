@@ -1,11 +1,11 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "io.routr.core";
-option java_outer_classname = "RoutrProto";
+option java_package = "com.fonoster.scaipproxy.core";
+option java_outer_classname = "ScaipProxyProto";
 option objc_class_prefix = "HLW";
 
-package routr;
+package scaipproxy;
 
 service Controller {
   rpc RunCommand (CommandRequest) returns (CommandReply) {}

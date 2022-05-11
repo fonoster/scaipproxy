@@ -12,7 +12,7 @@ node_modules
 *.tar.gz
 *.zip
 *.dat
-.routr.salt
+.scaipproxy.salt
 build
 libs
 etc/lib/applicationinsights.json
@@ -27,6 +27,7 @@ jre
 package-lock.json
 logs
 bin
+${sys:DATA}
 
 # User-specific stuff:
 .idea/workspace.xml

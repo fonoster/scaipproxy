@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./node_modules/@routr",
+    "outDir": "./node_modules/@scaipproxy",
     "allowJs": true,
     "target": "es5"
   },

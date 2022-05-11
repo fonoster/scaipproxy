@@ -1,9 +1,9 @@
 version: '3.7'
 services:
-  routr:
+  scaipproxy:
     build:
       context: .
-    image: fonoster/routr:scaip-20210918.1
+    image: fonoster/scaipproxy:20210918.1
     depends_on: [redis]
     environment:
       DATA_SOURCE_PROVIDER: redis_data_provider
@@ -11,10 +11,6 @@ services:
     ports:
       - '5060:5060'
       - '5060:5060/udp'
-      - '5061:5061'
-      - '5062:5062'
-      - '5063:5063'
-      - '4567:4567'
   redis:
     image: redis:6.0.3-alpine
     command: ['redis-server', '--appendonly', 'yes']

@@ -2,8 +2,8 @@
  * @author Pedro Sanders
  * @since v1
  */
-const AuthHelper = require('@routr/utils/auth_helper')
-const { connectionException } = require('@routr/utils/exception_helpers')
+const AuthHelper = require('@scaipproxy/utils/auth_helper')
+const { connectionException } = require('@scaipproxy/utils/exception_helpers')
 
 const ToHeader = Java.type('javax.sip.header.ToHeader')
 const ContactHeader = Java.type('javax.sip.header.ContactHeader')
@@ -42,48 +42,6 @@ const isRegisterNok = r => !isOk(r) && isRegister(r)
 const isBehindNat = r => {
   const v = r.getHeader(ViaHeader.NAME)
   return !v.getHost().equals(v.getReceived()) || v.getPort() !== v.getRPort()
-}
-
-const getAccountManager = gateway => {
-  const buildAddr = (h, p) => `${h}${p ? ':' + p : ''}`
-  return new AccountManager({
-    getCredentials: () => {
-      return new UserCredentials({
-        getUserName: () => gateway.spec.credentials.username,
-        getPassword: () => gateway.spec.credentials.secret,
-        getSipDomain: () => buildAddr(gateway.spec.host, gateway.spec.port)
-      })
-    }
-  })
-}
-
-const handleAuthChallenge = (sipStack, e, gateway) => {
-  try {
-    const accountManager = getAccountManager(gateway)
-    const authHelper = sipStack.getAuthenticationHelper(
-      accountManager,
-      headerFactory
-    )
-    // Setting looseRouting to false will cause https://github.com/fonoster/routr/issues/18
-    authHelper
-      .handleChallenge(
-        e.getResponse(),
-        e.getClientTransaction(),
-        e.getSource(),
-        5,
-        true
-      )
-      .sendRequest()
-  } catch (ex) {
-    connectionException(
-      ex,
-      e
-        .getClientTransaction()
-        .getRequest()
-        .getRequestURI()
-        .getHost()
-    )
-  }
 }
 
 const getExpires = message => {
@@ -140,5 +98,4 @@ module.exports.isRegister = isRegister
 module.exports.isRegisterOk = isRegisterOk
 module.exports.isRegisterNok = isRegisterNok
 module.exports.isBehindNat = isBehindNat
-module.exports.handleAuthChallenge = handleAuthChallenge
 module.exports.getExpires = getExpires

@@ -2,9 +2,9 @@
  * @author Pedro Sanders
  * @since v1
  */
-const CoreUtils = require('@routr/core/utils')
-const DSUtils = require('@routr/data_api/utils')
-const { Status } = require('@routr/core/status')
+const CoreUtils = require('@scaipproxy/core/utils')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const { Status } = require('@scaipproxy/core/status')
 const configSchemPath = 'etc/schemas/config_schema.json'
 
 class ConfigAPI {

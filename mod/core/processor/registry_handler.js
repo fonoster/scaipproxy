@@ -2,7 +2,7 @@
  * @author Pedro Sanders
  * @since v1
  */
-const { connectionException } = require('@routr/utils/exception_helpers')
+const { connectionException } = require('@scaipproxy/utils/exception_helpers')
 const SipFactory = Java.type('javax.sip.SipFactory')
 const ViaHeader = Java.type('javax.sip.header.ViaHeader')
 const MaxForwardsHeader = Java.type('javax.sip.header.MaxForwardsHeader')

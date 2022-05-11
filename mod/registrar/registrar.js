@@ -3,13 +3,13 @@
  * @since v1
  */
 const postal = require('postal')
-const AuthHelper = require('@routr/utils/auth_helper')
-const { Status } = require('@routr/core/status')
-const RegistrarUtils = require('@routr/registrar/utils')
+const AuthHelper = require('@scaipproxy/utils/auth_helper')
+const { Status } = require('@scaipproxy/core/status')
+const RegistrarUtils = require('@scaipproxy/registrar/utils')
 
-const DSSelector = require('@routr/data_api/ds_selector')
-const AgentsAPI = require('@routr/data_api/agents_api')
-const PeersAPI = require('@routr/data_api/peers_api')
+const DSSelector = require('@scaipproxy/data_api/ds_selector')
+const AgentsAPI = require('@scaipproxy/data_api/agents_api')
+const PeersAPI = require('@scaipproxy/data_api/peers_api')
 const AuthorizationHeader = Java.type('javax.sip.header.AuthorizationHeader')
 const LogManager = Java.type('org.apache.logging.log4j.LogManager')
 

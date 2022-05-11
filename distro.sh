@@ -2,13 +2,13 @@
 
 set -e
 
-export ROUTR_VERSION=$(node -e "console.log(require('./package.json').version)")
+export SCAIPPROXY_VERSION=$(node -e "console.log(require('./package.json').version)")
 
 build_for_platform() {
     PLATFORM=$1
 
-    # ROUTR_VERSION is set at the CI/CD process
-    BUILD_NAME="routr-$ROUTR_VERSION""_$PLATFORM-x64_bin"
+    # SCAIPPROXY_VERSION is set at the CI/CD process
+    BUILD_NAME="scaipproxy-$SCAIPPROXY_VERSION""_$PLATFORM-x64_bin"
     # Cleanup
     rm -rf $BUILD_NAME
     mkdir -p $BUILD_NAME/libs
@@ -20,7 +20,7 @@ build_for_platform() {
     cp -a etc/certs $BUILD_NAME/etc
     cp -a etc/schemas $BUILD_NAME/etc
     cp libs/* $BUILD_NAME/libs
-    cp routr $BUILD_NAME/
+    cp scaipproxy $BUILD_NAME/
     cp README.md $BUILD_NAME/
     cp LICENSE $BUILD_NAME/
     tar -czvf $BUILD_NAME.tar.gz $BUILD_NAME

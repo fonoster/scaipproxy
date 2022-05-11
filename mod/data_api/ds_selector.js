@@ -1,6 +1,6 @@
-const FilesDataSource = require('@routr/data_api/files_datasource')
-const RedisDataSource = require('@routr/data_api/redis_datasource')
-const config = require('@routr/core/config_util')()
+const FilesDataSource = require('@scaipproxy/data_api/files_datasource')
+const RedisDataSource = require('@scaipproxy/data_api/redis_datasource')
+const config = require('@scaipproxy/core/config_util')()
 
 class DSSelector {
   constructor () {

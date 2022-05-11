@@ -1,16 +1,15 @@
 apiVersion: v2
-name: routr
+name: scaipproxy
 description: Scaip Proxy Server
 type: application
 version: 0.0.10
-appVersion: 1.0.0-rc5
+appVersion: 1.0.0
 dependencies:
   - name: redis
     version: 10.6.18
     repository: https://charts.bitnami.com/bitnami
 sources:
-  - https://github.com/psanders/scaipserver
-icon: https://routr.io/site_assets/images/avatar.png
+  - https://github.com/fonoster/scaipproxy
 keywords: [sip, scaip, proxy]
 maintainers:
   - name: psanders

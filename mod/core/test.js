@@ -5,12 +5,16 @@
  * Unit Test for the "Core Module"
  */
 const assert = require('assert')
-const { isValidIp, isLocalnet, addressCount } = require('@routr/core/ip_util')
+const {
+  isValidIp,
+  isLocalnet,
+  addressCount
+} = require('@scaipproxy/core/ip_util')
 const { cidrInfo } = require('ip-utils')
 
 describe('Core tests', () => {
   it('Checks configuration', function (done) {
-    const config = require('@routr/core/config_util')()
+    const config = require('@scaipproxy/core/config_util')()
     assert.ok(config !== undefined)
     done()
   })

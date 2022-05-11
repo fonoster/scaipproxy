@@ -5,9 +5,9 @@
  * Unit Test for the "Registrar Module"
  */
 const assert = require('assert')
-const { createRequest } = require('@routr/utils/test_util')
-const { getExpires } = require('@routr/core/processor/processor_utils')
-const RegistrarUtils = require('@routr/registrar/utils')
+const { createRequest } = require('@scaipproxy/utils/test_util')
+const { getExpires } = require('@scaipproxy/core/processor/processor_utils')
+const RegistrarUtils = require('@scaipproxy/registrar/utils')
 
 describe('Registrar checks', () => {
   it('Get expires', function (done) {

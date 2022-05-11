@@ -2,8 +2,8 @@
  * @author Pedro Sanders
  * @since v1
  */
-const DSUtils = require('@routr/data_api/utils')
-const FilesUtil = require('@routr/utils/files_util')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const FilesUtil = require('@scaipproxy/utils/files_util')
 const System = Java.type('java.lang.System')
 const LogManager = Java.type('org.apache.logging.log4j.LogManager')
 const LOG = LogManager.getLogger()

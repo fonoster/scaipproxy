@@ -30,14 +30,6 @@
                         "type": "object",
                         "properties": {
                             "domainUri": {"type": "string", "readOnly": true, "minLength": 1},
-                            "egressPolicy": {
-                                "type": "object",
-                                "properties": {
-                                    "rule": {"type": "string"},
-                                    "numberRef": {"type": "string"}
-                                },
-                                "required": ["rule", "numberRef"]
-                            },
                             "accessControlList": {
                                 "type": "object",
                                 "properties": {

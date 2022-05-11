@@ -2,9 +2,9 @@
  * @author Pedro Sanders
  * @since v1
  */
-const CoreUtils = require('@routr/core/utils')
-const DSUtils = require('@routr/data_api/utils')
-const { Status } = require('@routr/core/status')
+const CoreUtils = require('@scaipproxy/core/utils')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const { Status } = require('@scaipproxy/core/status')
 const JedisPoolConfig = Java.type('redis.clients.jedis.JedisPoolConfig')
 const JedisPool = Java.type('redis.clients.jedis.JedisPool')
 const ObjectId = Java.type('org.bson.types.ObjectId')

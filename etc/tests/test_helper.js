@@ -73,5 +73,5 @@ if (tests.length === 0) {
 }
 
 tests.forEach(function(t) {
-    THelper.test('node_modules/@routr/' + t)
+    THelper.test('node_modules/@scaipproxy/' + t)
 })

@@ -20,7 +20,7 @@ run() {
     -Dpolyglot.js.nashorn-compat=true \
     $JAVA_OPTS \
     -classpath "$HOME/libs/*" \
-    io.routr.core.Launcher
+    com.fonoster.scaipproxy.core.Launcher
     return $?
 }
 

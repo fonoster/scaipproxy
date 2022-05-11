@@ -5,7 +5,7 @@
  * @since v1
  */
 const postal = require('postal')
-const { connectionException } = require('@routr/utils/exception_helpers')
+const { connectionException } = require('@scaipproxy/utils/exception_helpers')
 const Response = Java.type('javax.sip.message.Response')
 const SipFactory = Java.type('javax.sip.SipFactory')
 const ArrayList = Java.type('java.util.ArrayList')

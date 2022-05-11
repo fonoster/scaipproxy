@@ -5,14 +5,13 @@
  * @author Pedro Sanders
  * @since v1
  */
-const CoreUtils = require('@routr/core/utils')
-const LocatorUtils = require('@routr/location/utils')
-const NumbersAPI = require('@routr/data_api/numbers_api')
-const DSSelector = require('@routr/data_api/ds_selector')
-const SDSelector = require('@routr/data_api/store_driver_selector')
-const StoreAPI = require('@routr/data_api/store_api')
+const CoreUtils = require('@scaipproxy/core/utils')
+const LocatorUtils = require('@scaipproxy/location/utils')
+const DSSelector = require('@scaipproxy/data_api/ds_selector')
+const SDSelector = require('@scaipproxy/data_api/store_driver_selector')
+const StoreAPI = require('@scaipproxy/data_api/store_api')
 const postal = require('postal')
-const { Status } = require('@routr/core/status')
+const { Status } = require('@scaipproxy/core/status')
 
 const LogManager = Java.type('org.apache.logging.log4j.LogManager')
 const LOG = LogManager.getLogger()
@@ -24,7 +23,6 @@ const LOG = LogManager.getLogger()
  */
 class Locator {
   constructor () {
-    this.numbersAPI = new NumbersAPI(DSSelector.getDS())
     this.store = new StoreAPI(SDSelector.getDriver()).withCollection('location')
     this.subscribeToPostal()
   }

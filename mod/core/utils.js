@@ -2,7 +2,7 @@
  * @author Pedro Sanders
  * @since v1
  */
-const { Status } = require('@routr/core/status')
+const { Status } = require('@scaipproxy/core/status')
 
 const JedisConnectionException = Java.type(
   'redis.clients.jedis.exceptions.JedisConnectionException'

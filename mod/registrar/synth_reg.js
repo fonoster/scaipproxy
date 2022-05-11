@@ -3,14 +3,14 @@
  * @since v1
  */
 const postal = require('postal')
-const DSSelector = require('@routr/data_api/ds_selector')
-const AgentsAPI = require('@routr/data_api/agents_api')
+const DSSelector = require('@scaipproxy/data_api/ds_selector')
+const AgentsAPI = require('@scaipproxy/data_api/agents_api')
 const FromHeader = Java.type('javax.sip.header.FromHeader')
 const ToHeader = Java.type('javax.sip.header.ToHeader')
 const LogManager = Java.type('org.apache.logging.log4j.LogManager')
 const ViaHeader = Java.type('javax.sip.header.ViaHeader')
 const SipFactory = Java.type('javax.sip.SipFactory')
-const { isBehindNat } = require('@routr/core/processor/processor_utils')
+const { isBehindNat } = require('@scaipproxy/core/processor/processor_utils')
 
 const LOG = LogManager.getLogger()
 

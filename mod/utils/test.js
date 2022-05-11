@@ -5,12 +5,12 @@
  * Unit Test for the "Utils Module"
  */
 const assert = require('assert')
-const config = require('@routr/core/config_util')()
+const config = require('@scaipproxy/core/config_util')()
 const {
   buildAddr,
   protocolTransport,
   nearestInterface
-} = require('@routr/utils/misc_utils')
+} = require('@scaipproxy/utils/misc_utils')
 
 describe('Utils Module', () => {
   it('Get transport object for a protocol', function (done) {

@@ -2,8 +2,8 @@
  * @author Pedro Sanders
  * @since v1
  */
-const DSUtils = require('@routr/data_api/utils')
-const getConfig = require('@routr/core/config_util')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const getConfig = require('@scaipproxy/core/config_util')
 const defaultRedisParameters =
   'host=localhost,port=6379,max_retry=30,retry_interval=2'
 

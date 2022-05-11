@@ -2,7 +2,7 @@
  * @author Pedro Sanders
  * @since v1
  */
-const { hasIp, addressCount } = require('@routr/core/ip_util')
+const { hasIp, addressCount } = require('@scaipproxy/core/ip_util')
 
 class Rule {
   constructor (net, action) {

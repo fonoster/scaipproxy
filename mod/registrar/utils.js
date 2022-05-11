@@ -5,9 +5,9 @@
 const {
   getExpires,
   isBehindNat
-} = require('@routr/core/processor/processor_utils')
-const isEmpty = require('@routr/utils/obj_util')
-const config = require('@routr/core/config_util')()
+} = require('@scaipproxy/core/processor/processor_utils')
+const isEmpty = require('@scaipproxy/utils/obj_util')
+const config = require('@scaipproxy/core/config_util')()
 
 const ViaHeader = Java.type('javax.sip.header.ViaHeader')
 const ContactHeader = Java.type('javax.sip.header.ContactHeader')

@@ -3,15 +3,16 @@
  * @since v1
  */
 const merge = require('deepmerge')
-const defaults = require('@routr/core/config/config_defaults')(
+const defaults = require('@scaipproxy/core/config/config_defaults')(
   new Date().getTime()
 )
-const { getSalt } = require('@routr/core/config/salt')
-const getConfigFromRedis = require('@routr/core/config/config_from_redis')
+const { getSalt } = require('@scaipproxy/core/config/salt')
+const getConfigFromRedis = require('@scaipproxy/core/config/config_from_redis')
   .getConfig
-const getConfigFromFile = require('@routr/core/config/config_from_file')
+const getConfigFromFile = require('@scaipproxy/core/config/config_from_file')
   .getConfig
-const getConfigFromEnv = require('@routr/core/config/config_from_env').getConfig
+const getConfigFromEnv = require('@scaipproxy/core/config/config_from_env')
+  .getConfig
 const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray
 const isRedisDS = config =>
   config.spec &&

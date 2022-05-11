@@ -1,6 +1,6 @@
 @file:JvmName("VersionUtil")
 
-package io.routr.util
+package com.fonoster.scaipproxy.util
 
 fun getVersion(): Int {
     var version = System.getProperty("java.version")

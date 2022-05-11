@@ -1,9 +1,7 @@
-const LocatorUtils = require('@routr/location/utils')
-const { isLocalnet } = require('@routr/core/ip_util')
-const { equalsIgnoreCase, fixPort } = require('@routr/utils/misc_utils')
-const config = require('@routr/core/config_util')()
-const { RoutingType } = require('@routr/core/routing_type')
-
+const LocatorUtils = require('@scaipproxy/location/utils')
+const { isLocalnet } = require('@scaipproxy/core/ip_util')
+const { fixPort } = require('@scaipproxy/utils/misc_utils')
+const config = require('@scaipproxy/core/config_util')()
 const Request = Java.type('javax.sip.message.Request')
 const ContactHeader = Java.type('javax.sip.header.ContactHeader')
 const RouteHeader = Java.type('javax.sip.header.RouteHeader')
@@ -18,7 +16,6 @@ const addressFactory = SipFactory.getInstance().createAddressFactory()
 
 const isExternalDevice = r =>
   r && (!r.sentByAddress || r.sentByAddress.endsWith('.invalid'))
-const isWebRTCClient = isExternalDevice
 const isPublicAddress = h => !isLocalnet(config.spec.localnets, h)
 const needsExternAddress = (route, host) =>
   isExternalDevice(route) || isPublicAddress(host)
@@ -49,14 +46,6 @@ const getAdvertisedAddr = (request, route, localAddr) => {
     ? { host: addrHost(externAddr), port: addrPort(externAddr, localAddr) }
     : localAddr
 }
-const getToUser = request => {
-  const toHeader = request.getHeader(ToHeader.NAME)
-  return toHeader
-    .getAddress()
-    .getURI()
-    .getUser()
-}
-const getUser = request => request.getRequestURI().getUser()
 const configureMaxForwards = request => {
   const requestOut = request.clone()
   const maxForwardsHeader = requestOut.getHeader(MaxForwardsHeader.NAME)
@@ -162,65 +151,6 @@ const configureRequestURI = (request, routeInfo, route) => {
   requestOut.setRequestURI(LocatorUtils.aorAsObj(route.contactURI))
   return requestOut
 }
-const configurePrivacy = (request, routeInfo) => {
-  const requestOut = request.clone()
-  requestOut.removeHeader('Privacy')
-  const callee = routeInfo.getCallee()
-  if (callee && equalsIgnoreCase(callee.kind, 'agent')) {
-    let privacyHeader
-
-    if (
-      callee.spec.privacy &&
-      equalsIgnoreCase(callee.spec.privacy, 'private')
-    ) {
-      const originFromHeader = requestOut.getHeader(FromHeader.NAME)
-      const fromHeaderAddrs = addressFactory.createAddress(
-        `"Anonymous" <sip:anonymous@anonymous.invalid>`
-      )
-      const fromHeader = headerFactory.createHeader(
-        'From',
-        fromHeaderAddrs.toString()
-      )
-      fromHeader.setTag(originFromHeader.getTag())
-      requestOut.setHeader(fromHeader)
-      privacyHeader = headerFactory.createHeader('Privacy', 'id')
-    } else {
-      privacyHeader = headerFactory.createHeader('Privacy', 'none')
-    }
-
-    requestOut.addHeader(privacyHeader)
-  }
-  return requestOut
-}
-const configureIdentity = (request, route) => {
-  const requestOut = request.clone()
-  if (route.thruGw) {
-    const remotePartyIdHeader = headerFactory.createHeader(
-      'Remote-Party-ID',
-      `<sip:${route.number}@${route.gwHost}>;screen=yes;party=calling`
-    )
-    const dp = requestOut
-      .getHeader(FromHeader.NAME)
-      .getAddress()
-      .getDisplayName()
-    const displayName = dp ? `"${dp}" ` : ''
-    const pAssertedIdentity = headerFactory.createHeader(
-      'P-Asserted-Identity',
-      `${displayName}<sip:${route.number}@${route.gwHost}>`
-    )
-    requestOut.setHeader(remotePartyIdHeader)
-    requestOut.setHeader(pAssertedIdentity)
-  }
-  return requestOut
-}
-const configureXHeaders = (request, route) => {
-  const requestOut = request.clone()
-  if (route.thruGw) {
-    const gwRefHeader = headerFactory.createHeader('X-Gateway-Ref', route.gwRef)
-    requestOut.setHeader(gwRefHeader)
-  }
-  return requestOut
-}
 const isInDialog = request =>
   request.getHeader(ToHeader.NAME).getTag() !== null &&
   request.getHeader(FromHeader.NAME).getTag() !== null
@@ -232,9 +162,6 @@ module.exports.configureProxyAuthorization = configureProxyAuthorization
 module.exports.configureRequestURI = configureRequestURI
 module.exports.configureMaxForwards = configureMaxForwards
 module.exports.configureContact = configureContact
-module.exports.configurePrivacy = configurePrivacy
 module.exports.configureRecordRoute = configureRecordRoute
-module.exports.configureIdentity = configureIdentity
-module.exports.configureXHeaders = configureXHeaders
 module.exports.configureCSeq = configureCSeq
 module.exports.isInDialog = isInDialog

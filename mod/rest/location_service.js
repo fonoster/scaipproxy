@@ -2,9 +2,9 @@
  * @author Pedro Sanders
  * @since v1
  */
-const LocatorUtils = require('@routr/location/utils')
-const DSUtils = require('@routr/data_api/utils')
-const isEmpty = require('@routr/utils/obj_util')
+const LocatorUtils = require('@scaipproxy/location/utils')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const isEmpty = require('@scaipproxy/utils/obj_util')
 const get = Java.type('spark.Spark').get
 const del = Java.type('spark.Spark').delete
 

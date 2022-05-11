@@ -2,9 +2,9 @@
  * @author Pedro Sanders
  * @since v1
  */
-const config = require('@routr/core/config_util')()
-const RequestProcessor = require('@routr/core/processor/request_processor')
-const ResponseProcessor = require('@routr/core/processor/response_processor')
+const config = require('@scaipproxy/core/config_util')()
+const RequestProcessor = require('@scaipproxy/core/processor/request_processor')
+const ResponseProcessor = require('@scaipproxy/core/processor/response_processor')
 const SipListener = Java.type('javax.sip.SipListener')
 const ToHeader = Java.type('javax.sip.header.ToHeader')
 const FromHeader = Java.type('javax.sip.header.FromHeader')

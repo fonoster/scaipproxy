@@ -28,7 +28,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-      - name: routr
+      - name: scaipproxy
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
@@ -37,59 +37,59 @@ spec:
         - name: DATA_SOURCE_PARAMETERS
           value: host={{ .Release.Name }}-redis-master,port=6379
         - name: EXTERN_ADDR
-          value: {{ .Values.routr.externAddr | quote }}
+          value: {{ .Values.scaipproxy.externAddr | quote }}
         - name: LOCALNETS
-          value: {{ join "," .Values.routr.localnets }}
+          value: {{ join "," .Values.scaipproxy.localnets }}
         - name: DIGEST_AUTH_ADDR
-          value: {{ join "," .Values.routr.digestAuthAddr }}
+          value: {{ join "," .Values.scaipproxy.digestAuthAddr }}
         - name: USER_AGENT
-          value: {{ .Values.routr.userAgent | quote }}
+          value: {{ .Values.scaipproxy.userAgent | quote }}
         - name: BIND_ADDR
-          value: {{ .Values.routr.bindAddr | quote }}
+          value: {{ .Values.scaipproxy.bindAddr | quote }}
         - name: RECORD_ROUTE
-          value: {{ .Values.routr.recordRoute | quote }}
+          value: {{ .Values.scaipproxy.recordRoute | quote }}
         - name: USE_TO_AS_AOR
-          value: {{ .Values.routr.useToAsAOR | quote }}
+          value: {{ .Values.scaipproxy.useToAsAOR | quote }}
         - name: PATCH_REQUEST_URI
-          value: {{ .Values.routr.patchRequestURI | quote }}
+          value: {{ .Values.scaipproxy.patchRequestURI | quote }}
         - name: REGISTRAR_INTF
-          value: {{ .Values.routr.registrarIntf | quote }}
+          value: {{ .Values.scaipproxy.registrarIntf | quote }}
         - name: ACCESS_CONTROL_LIST_ALLOW
-          value: {{ join "," .Values.routr.accessControlList.allow }}
+          value: {{ join "," .Values.scaipproxy.accessControlList.allow }}
         - name: ACCESS_CONTROL_LIST_DENY
-          value: {{ join "," .Values.routr.accessControlList.deny }}
+          value: {{ join "," .Values.scaipproxy.accessControlList.deny }}
         - name: REST_SERVICE_BIND_ADDR
-          value: {{ .Values.routr.restService.bindAddr | quote }}
+          value: {{ .Values.scaipproxy.restService.bindAddr | quote }}
         - name: REST_SERVICE_PORT
-          value: {{ .Values.routr.restService.port | quote }}
+          value: {{ .Values.scaipproxy.restService.port | quote }}
         - name: REST_SERVICE_MIN_THREADS
-          value: {{ .Values.routr.restService.minThreads | quote }}
+          value: {{ .Values.scaipproxy.restService.minThreads | quote }}
         - name: REST_SERVICE_MAX_THREADS
-          value: {{ .Values.routr.restService.maxThreads | quote }}
+          value: {{ .Values.scaipproxy.restService.maxThreads | quote }}
         - name: REST_SERVICE_TIMEOUT_MILLIS
-          value: {{ .Values.routr.restService.timeoutMillis | quote }}
+          value: {{ .Values.scaipproxy.restService.timeoutMillis | quote }}
         - name: REST_SERVICE_UNSECURED
-          value: {{ .Values.routr.restService.unsecured | quote }}
+          value: {{ .Values.scaipproxy.restService.unsecured | quote }}
         - name: REST_SERVICE_KEY_STORE
-          value: {{ .Values.routr.restService.keyStore | quote }}
+          value: {{ .Values.scaipproxy.restService.keyStore | quote }}
         - name: REST_SERVICE_KEY_STORE_PASSWORD
-          value: {{ .Values.routr.restService.keyStorePassword | quote }}
+          value: {{ .Values.scaipproxy.restService.keyStorePassword | quote }}
         - name: REST_SERVICE_TRUST_STORE
-          value: {{ .Values.routr.restService.trustStore | quote }}
+          value: {{ .Values.scaipproxy.restService.trustStore | quote }}
         - name: REST_SERVICE_TRUST_STORE_PASSWORD
-          value: {{ .Values.routr.restService.trustStorePassword | quote }}
+          value: {{ .Values.scaipproxy.restService.trustStorePassword | quote }}
         - name: SECURITY_CONTEXT_KEY_STORE
-          value: {{ .Values.routr.securityContext.keyStore | quote }}
+          value: {{ .Values.scaipproxy.securityContext.keyStore | quote }}
         - name: SECURITY_CONTEXT_TRUST_STORE
-          value: {{ .Values.routr.securityContext.trustStore | quote }}
+          value: {{ .Values.scaipproxy.securityContext.trustStore | quote }}
         - name: SECURITY_CONTEXT_KEY_STORE_PASSWORD
-          value: {{ .Values.routr.securityContext.keyStorePassword | quote }}
+          value: {{ .Values.scaipproxy.securityContext.keyStorePassword | quote }}
         - name: SECURITY_CONTEXT_DEBUGGING
-          value: {{ .Values.routr.securityContext.debugging | quote }}
+          value: {{ .Values.scaipproxy.securityContext.debugging | quote }}
         - name: SECURITY_CONTEXT_CLIENT_KEY_STORE_TYPE
-          value: {{ .Values.routr.securityContext.client.keyStoreType | quote }}
+          value: {{ .Values.scaipproxy.securityContext.client.keyStoreType | quote }}
         - name: SECURITY_CONTEXT_CLIENT_PROTOCOLS
-          value: {{ join "," .Values.routr.securityContext.client.protocols }}
+          value: {{ join "," .Values.scaipproxy.securityContext.client.protocols }}
         ports:
         - name: {{ .Values.adminService.name }}
           containerPort: {{ .Values.adminService.containerPort | default .Values.adminService.port }}
@@ -108,21 +108,21 @@ spec:
         {{- end }}
         volumeMounts:
         - name: log4j2
-          mountPath: /opt/routr/config/log4j2.yml
+          mountPath: /opt/scaipproxy/config/log4j2.yml
           subPath: log4j2.yml
         {{- if eq .Values.certs.provided true }}  
         - name: domains-cert
-          mountPath: /opt/routr/etc/certs/domains-cert.jks
+          mountPath: /opt/scaipproxy/etc/certs/domains-cert.jks
           subPath: domains-cert.jks
           readOnly: true
         - name: api-cert
-          mountPath: /opt/routr/etc/certs/api-cert.jks
+          mountPath: /opt/scaipproxy/etc/certs/api-cert.jks
           subPath: api-cert.jks
           readOnly: true
         {{- end }}
         {{- if eq .Values.applicationinsights.enabled true }} 
         - name: applicationinsights
-          mountPath: /opt/routr/libs/applicationinsights.json
+          mountPath: /opt/scaipproxy/libs/applicationinsights.json
           subPath: applicationinsights.json
           readOnly: true
         {{- end }}        

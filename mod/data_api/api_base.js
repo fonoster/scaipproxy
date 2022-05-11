@@ -2,8 +2,8 @@
  * @author Pedro Sanders
  * @since v1
  */
-const DSUtils = require('@routr/data_api/utils')
-const CoreUtils = require('@routr/core/utils')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const CoreUtils = require('@scaipproxy/core/utils')
 const Caffeine = Java.type('com.github.benmanes.caffeine.cache.Caffeine')
 const TimeUnit = Java.type('java.util.concurrent.TimeUnit')
 const merge = require('deepmerge')
@@ -11,7 +11,7 @@ const {
   Status,
   UNFULFILLED_DEPENDENCY_RESPONSE,
   ENTITY_ALREADY_EXIST_RESPONSE
-} = require('@routr/core/status')
+} = require('@scaipproxy/core/status')
 const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray
 
 class APIBase {

@@ -1,4 +1,4 @@
-package io.routr.core
+package com.fonoster.scaipproxy.core
 
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose
@@ -34,7 +34,7 @@ class LogsHandler {
         var br: BufferedReader? = null
         try {
             val base = if (System.getenv("DATA") != null) System.getenv("DATA") else "."
-            val file = File("$base/logs/routr.log")
+            val file = File("$base/logs/scaipproxy.log")
             br = BufferedReader(FileReader(file))
             while (true) {
                 val line = br.readLine()

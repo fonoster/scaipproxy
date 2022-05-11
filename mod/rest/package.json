@@ -1,5 +1,5 @@
 {
-  "name": "@routr/rest",
+  "name": "@scaipproxy/rest",
   "version": "1.0.0",
   "description": "Routr's rest api",
   "scripts": {

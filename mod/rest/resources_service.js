@@ -2,10 +2,10 @@
  * @author Pedro Sanders
  * @since v1
  */
-const RestUtil = require('@routr/rest/utils')
-const DSUtils = require('@routr/data_api/utils')
-const { Status } = require('@routr/core/status')
-const isEmpty = require('@routr/utils/obj_util')
+const RestUtil = require('@scaipproxy/rest/utils')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const { Status } = require('@scaipproxy/core/status')
+const isEmpty = require('@scaipproxy/utils/obj_util')
 
 const get = Java.type('spark.Spark').get
 const post = Java.type('spark.Spark').post

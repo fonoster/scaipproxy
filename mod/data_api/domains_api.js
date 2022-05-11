@@ -2,9 +2,9 @@
  * @author Pedro Sanders
  * @since v1
  */
-const DSUtils = require('@routr/data_api/utils')
-const APIBase = require('@routr/data_api/api_base')
-const { Status } = require('@routr/core/status')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const APIBase = require('@scaipproxy/data_api/api_base')
+const { Status } = require('@scaipproxy/core/status')
 const foundDependentObjects = {
   status: Status.CONFLICT,
   message: Status.message[4092].value
@@ -17,12 +17,7 @@ class DomainsAPI extends APIBase {
   }
 
   createFromJSON (jsonObj) {
-    const hasUnfulfilledDependency = j => {
-      return (
-        j.spec.context.egressPolicy &&
-        !this.doesNumberExist(j.spec.context.egressPolicy.numberRef)
-      )
-    }
+    const hasUnfulfilledDependency = () => false
     const alreadyExist = j => this.domainExist(j.spec.context.domainUri)
     return super.createFromJSON(
       jsonObj,
@@ -88,11 +83,6 @@ class DomainsAPI extends APIBase {
     return response.status !== Status.OK
       ? response
       : this.deleteDomain(response.data.metadata.ref)
-  }
-
-  doesNumberExist (numberRef) {
-    const response = this.ds.withCollection('numbers').get(numberRef)
-    return response.status === Status.OK
   }
 }
 

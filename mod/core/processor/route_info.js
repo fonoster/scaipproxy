@@ -2,10 +2,10 @@
  * @author Pedro Sanders
  * @since v1
  */
-const { RouteEntityType } = require('@routr/core/route_entity_type')
-const { RoutingType } = require('@routr/core/routing_type')
-const { Status } = require('@routr/core/status')
-const config = require('@routr/core/config_util')()
+const { RouteEntityType } = require('@scaipproxy/core/route_entity_type')
+const { RoutingType } = require('@scaipproxy/core/routing_type')
+const { Status } = require('@scaipproxy/core/status')
+const config = require('@scaipproxy/core/config_util')()
 
 const ToHeader = Java.type('javax.sip.header.ToHeader')
 const FromHeader = Java.type('javax.sip.header.FromHeader')
@@ -48,7 +48,6 @@ class RouteInfo {
 
     this.peersAPI = dataAPIs.PeersAPI
     this.domainsAPI = dataAPIs.DomainsAPI
-    this.numbersAPI = dataAPIs.NumbersAPI
     this.agentsAPI = dataAPIs.AgentsAPI
   }
 
@@ -102,12 +101,6 @@ class RouteInfo {
     )
       routingType = RoutingType.INTER_DOMAIN_ROUTING
     if (
-      callerType === RouteEntityType.AGENT &&
-      calleetype === RouteEntityType.THRU_GW
-    )
-      routingType = RoutingType.DOMAIN_EGRESS_ROUTING
-
-    if (
       callerType === RouteEntityType.PEER &&
       calleetype === RouteEntityType.AGENT &&
       !belongToSameDomain
@@ -119,42 +112,18 @@ class RouteInfo {
       belongToSameDomain
     )
       routingType = RoutingType.INTRA_DOMAIN_ROUTING
-    if (
-      callerType === RouteEntityType.PEER &&
-      this.getCalleeType() === RouteEntityType.THRU_GW
-    )
-      routingType = RoutingType.PEER_EGRESS_ROUTING
-
-    if (
-      callerType === RouteEntityType.THRU_GW &&
-      calleetype === RouteEntityType.NUMBER
-    )
-      routingType = RoutingType.DOMAIN_INGRESS_ROUTING
-
-    // This is consider PEER_EGRESS_ROUTING because peers are the only one allow to overwrite the FromHeader.
-    if (
-      callerType === RouteEntityType.NUMBER &&
-      this.getCalleeType() === RouteEntityType.THRU_GW
-    )
-      routingType = RoutingType.PEER_EGRESS_ROUTING
 
     return routingType
   }
 
   getRouteEntityType (domain, entity) {
-    let entityType = RouteEntityType.THRU_GW
+    let entityType = RouteEntityType.UNKNOWN
 
     if (this.agentsAPI.agentExist(domain, entity)) {
       entityType = RouteEntityType.AGENT
     } else if (this.peersAPI.peerExist(entity)) {
       entityType = RouteEntityType.PEER
-    } else if (StringUtils.isNumeric(entity)) {
-      const telUrl = addressFactory.createTelURL(entity)
-      if (this.numbersAPI.numberExist(telUrl)) {
-        entityType = RouteEntityType.NUMBER
-      }
     }
-
     return entityType
   }
 

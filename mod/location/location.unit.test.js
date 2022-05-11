@@ -11,7 +11,7 @@ chai.use(sinonChai)
 const expect = chai.expect
 const LocatorUtils = require('./utils')
 
-describe('@routr/location', () => {
+describe('@scaipproxy/location', () => {
   context('aor as string', () => {
     it('converts aor string to an object', () => {
       const aor = 'sip:abc@10.97.1.16:56618'

@@ -3,13 +3,13 @@
  * @since v1
  */
 const System = Java.type('java.lang.System')
-const ConfigAPI = require('@routr/data_api/config_api')
-const RedisDataSource = require('@routr/data_api/redis_datasource')
-const DSUtils = require('@routr/data_api/utils')
+const ConfigAPI = require('@scaipproxy/data_api/config_api')
+const RedisDataSource = require('@scaipproxy/data_api/redis_datasource')
+const DSUtils = require('@scaipproxy/data_api/utils')
 const LogManager = Java.type('org.apache.logging.log4j.LogManager')
 const Thread = Java.type('java.lang.Thread')
 const LOG = LogManager.getLogger()
-const { Status } = require('@routr/core/status')
+const { Status } = require('@scaipproxy/core/status')
 const defaultRedisParameters =
   'host=localhost,port=6379,max_retry=-1,retry_interval=2'
 

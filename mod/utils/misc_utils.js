@@ -4,7 +4,7 @@
  *
  * Miscellaneous utilities
  */
-const MissingTransportError = require('@routr/core/missing_transport_error')
+const MissingTransportError = require('@scaipproxy/core/missing_transport_error')
 const buildAddr = (h, p) => `${h}${p ? ':' + p : ''}`
 const fixPort = port => (port === -1 ? 5060 : port)
 const equalsIgnoreCase = (a, b) => a.toLowerCase() === b.toLowerCase()

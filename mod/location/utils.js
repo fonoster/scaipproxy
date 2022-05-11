@@ -2,7 +2,7 @@
  * @author Pedro Sanders
  * @since v1
  */
-const { buildAddr, fixPort } = require('@routr/utils/misc_utils')
+const { buildAddr, fixPort } = require('@scaipproxy/utils/misc_utils')
 const StringBuilder = Java.type('java.lang.StringBuilder')
 const SipFactory = Java.type('javax.sip.SipFactory')
 const addressFactory = SipFactory.getInstance().createAddressFactory()
@@ -38,10 +38,6 @@ class LocatorUtils {
 
       return strBuilder.append(addressOfRecord.getHost()).toString()
     } else if (
-      addressOfRecord instanceof Java.type('javax.sip.address.TelURL')
-    ) {
-      return 'tel:' + addressOfRecord.getPhoneNumber()
-    } else if (
       typeof addressOfRecord === 'string' ||
       addressOfRecord instanceof String
     ) {
@@ -57,27 +53,6 @@ class LocatorUtils {
   static aorAsObj (addressOfRecord) {
     const addr = addressOfRecord.split('sip:')[1].split('@')
     return addressFactory.createSipURI(addr[0], addr[1])
-  }
-
-  static buildEgressRoute (addressOfRecord, gateway, number, domain) {
-    const username = gateway.spec.credentials
-      ? gateway.spec.credentials.username
-      : null
-    const route = {
-      addressOfRecord: addressOfRecord,
-      isLinkAOR: false,
-      thruGw: true,
-      gwUsername: username,
-      gwRef: gateway.metadata.ref,
-      gwHost: buildAddr(gateway.spec.host, gateway.spec.port),
-      numberRef: number.metadata.ref,
-      number: number.spec.location.telUrl.split(':')[1],
-      expires: -1
-    }
-    if (domain) {
-      route.rule = domain.spec.context.egressPolicy.rule
-    }
-    return route
   }
 }
 

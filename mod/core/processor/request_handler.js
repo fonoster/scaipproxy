@@ -2,10 +2,10 @@
  * @author Pedro Sanders
  * @since v1
  */
-const { connectionException } = require('@routr/utils/exception_helpers')
-const { sendResponse } = require('@routr/core/processor/processor_utils')
-const { Status } = require('@routr/core/status')
-const config = require('@routr/core/config_util')()
+const { connectionException } = require('@scaipproxy/utils/exception_helpers')
+const { sendResponse } = require('@scaipproxy/core/processor/processor_utils')
+const { Status } = require('@scaipproxy/core/status')
+const config = require('@scaipproxy/core/config_util')()
 
 const {
   getAdvertisedAddr,
@@ -16,12 +16,12 @@ const {
   configureMaxForwards,
   configureRecordRoute,
   isInDialog
-} = require('@routr/core/processor/request_utils')
+} = require('@scaipproxy/core/processor/request_utils')
 const Request = Java.type('javax.sip.message.Request')
 const Response = Java.type('javax.sip.message.Response')
 const ViaHeader = Java.type('javax.sip.header.ViaHeader')
 const ToHeader = Java.type('javax.sip.header.ToHeader')
-const LocatorUtils = require('@routr/location/utils')
+const LocatorUtils = require('@scaipproxy/location/utils')
 
 class RequestHandler {
   constructor (sipProvider, contextStorage, locator) {

@@ -2,13 +2,13 @@
  * @author Pedro Sanders
  * @since v1
  */
-const CoreUtils = require('@routr/core/utils')
-const DSUtils = require('@routr/data_api/utils')
-const FilesUtil = require('@routr/utils/files_util')
+const CoreUtils = require('@scaipproxy/core/utils')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const FilesUtil = require('@scaipproxy/utils/files_util')
 const XXH = require('xxhashjs')
-const { Status } = require('@routr/core/status')
-const config = require('@routr/core/config_util')()
-const isEmpty = require('@routr/utils/obj_util')
+const { Status } = require('@scaipproxy/core/status')
+const config = require('@scaipproxy/core/config_util')()
+const isEmpty = require('@scaipproxy/utils/obj_util')
 
 const Long = Java.type('java.lang.Long')
 const JsonPath = Java.type('com.jayway.jsonpath.JsonPath')
@@ -27,7 +27,7 @@ const lock = new ReentrantLock()
 
 const LogManager = Java.type('org.apache.logging.log4j.LogManager')
 const LOG = LogManager.getLogger()
-const RESOURCES = ['agents', 'domains', 'gateways', 'numbers', 'peers', 'users']
+const RESOURCES = ['agents', 'domains', 'peers', 'users']
 
 class FilesDataSource {
   constructor (config = config) {
@@ -100,42 +100,8 @@ class FilesDataSource {
   }
 
   resourceConstraintValidation () {
-    // Ensure GW for gwRef
-    let response = this.withCollection('numbers').find()
-
-    if (response.status === Status.OK) {
-      response.data.forEach(number => {
-        const gwRef = number.metadata.gwRef
-        response = this.withCollection('gateways').get(gwRef)
-        if (response.status !== Status.OK) {
-          LOG.error(`Gateway with ref \`${gwRef}\` does not exist`)
-          System.exit(1)
-        }
-      })
-    }
-
-    // Ensure Domains have valid Numbers
-    response = this.withCollection('domains').find()
-
-    if (response.status === Status.OK) {
-      response.data.forEach(domain => {
-        if (domain.spec.context.egressPolicy !== undefined) {
-          const numberRef = domain.spec.context.egressPolicy.numberRef
-          response = DSUtils.deepSearch(
-            this.withCollection('numbers').find(),
-            'metadata.ref',
-            numberRef
-          )
-          if (response.status !== Status.OK) {
-            LOG.error(`Number with ref \`${numberRef}\` does not exist`)
-            System.exit(1)
-          }
-        }
-      })
-    }
-
     // Ensure Agents have existing Domains
-    response = this.withCollection('agents').find()
+    let response = this.withCollection('agents').find()
 
     if (response.status === Status.OK) {
       response.data.forEach(agent => {
@@ -284,12 +250,6 @@ class FilesDataSource {
             obj.metadata.ref = `pr${this.generateRef(
               obj.spec.credentials.username
             )}`
-            break
-          case 'gateway':
-            obj.metadata.ref = `gw${this.generateRef(obj.spec.host)}`
-            break
-          case 'number':
-            obj.metadata.ref = `dd${this.generateRef(obj.spec.location.telUrl)}`
             break
           case 'user':
             obj.metadata.ref = `ur${this.generateRef(

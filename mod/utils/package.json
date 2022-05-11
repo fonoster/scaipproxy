@@ -1,7 +1,7 @@
 {
-  "name": "@routr/utils",
+  "name": "@scaipproxy/utils",
   "version": "1.0.0",
-  "description": "Routr's utils",
+  "description": "ScaipProxy's utils",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

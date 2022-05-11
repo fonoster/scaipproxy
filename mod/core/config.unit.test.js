@@ -10,10 +10,12 @@ const sinonChai = require('sinon-chai')
 chai.use(sinonChai)
 const expect = chai.expect
 var sandbox = sinon.createSandbox()
-const defaults = require('@routr/core/config/config_defaults')(new Date())
-const configFromEnv = require('@routr/core/config/config_from_env')
+const defaults = require('@scaipproxy/core/config/config_defaults')(new Date())
+const configFromEnv = require('@scaipproxy/core/config/config_from_env')
 
-sinon.stub(require('@routr/core/config/salt'), 'getSalt').returns('SALTYSALT')
+sinon
+  .stub(require('@scaipproxy/core/config/salt'), 'getSalt')
+  .returns('SALTYSALT')
 
 const configFromEnvStub = sinon.stub(configFromEnv, 'getConfig').returns({
   spec: {
@@ -22,7 +24,7 @@ const configFromEnvStub = sinon.stub(configFromEnv, 'getConfig').returns({
 })
 
 sinon
-  .stub(require('@routr/core/config/config_from_redis'), 'getConfig')
+  .stub(require('@scaipproxy/core/config/config_from_redis'), 'getConfig')
   .returns({
     apiVersion: 'v1beta1',
     spec: {
@@ -39,7 +41,7 @@ sinon
   })
 
 sinon
-  .stub(require('@routr/core/config/config_from_file'), 'getConfig')
+  .stub(require('@scaipproxy/core/config/config_from_file'), 'getConfig')
   .returns({
     apiVersion: 'v1beta1',
     spec: {
@@ -57,9 +59,9 @@ sinon
     }
   })
 
-describe('@routr/core/config', () => {
+describe('@scaipproxy/core/config', () => {
   context('config util', () => {
-    const config = require('@routr/core/config_util')()
+    const config = require('@scaipproxy/core/config_util')()
 
     it('check config merging', () => {
       expect(config)
@@ -119,7 +121,7 @@ describe('@routr/core/config', () => {
     configFromEnvStub.restore()
     it.skip('check from environment', () => {
       process.env.RECORD_ROUTE = true
-      process.env.USER_AGENT = 'Routr v1.0'
+      process.env.USER_AGENT = 'ScaipProxy v1.0'
       const config = configFromEnv.getConfig()
 
       expect(config)
@@ -130,7 +132,7 @@ describe('@routr/core/config', () => {
       expect(config)
         .to.have.property('metadata')
         .to.have.property('userAgent')
-        .to.be.equal('Routr v1.0')
+        .to.be.equal('ScaipProxy v1.0')
     })
   })
 })

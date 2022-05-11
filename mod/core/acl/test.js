@@ -5,8 +5,8 @@
  * Unit Test for the "Utils Module"
  */
 const assert = require('assert')
-const ACLUtil = require('@routr/core/acl/acl_util')
-const Rule = require('@routr/core/acl/acl_rule')
+const ACLUtil = require('@scaipproxy/core/acl/acl_util')
+const Rule = require('@scaipproxy/core/acl/acl_rule')
 
 describe('Access Control List Submodule', () => {
   it('Rules', function (done) {

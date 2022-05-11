@@ -1,9 +1,9 @@
-package io.routr.core
+package com.fonoster.scaipproxy.core
 
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import io.grpc.StatusRuntimeException
-import io.routr.core.ControllerGrpc.ControllerBlockingStub
+import com.fonoster.scaipproxy.core.ControllerGrpc.ControllerBlockingStub
 import org.apache.logging.log4j.LogManager
 import java.util.concurrent.TimeUnit
 

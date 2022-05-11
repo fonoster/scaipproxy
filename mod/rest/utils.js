@@ -2,10 +2,10 @@
  * @author Pedro Sanders
  * @since v1
  */
-const DSUtils = require('@routr/data_api/utils')
-const CoreUtils = require('@routr/core/utils')
-const { Status } = require('@routr/core/status')
-const isEmpty = require('@routr/utils/obj_util')
+const DSUtils = require('@scaipproxy/data_api/utils')
+const CoreUtils = require('@scaipproxy/core/utils')
+const { Status } = require('@scaipproxy/core/status')
+const isEmpty = require('@scaipproxy/utils/obj_util')
 
 const MultipartConfigElement = Java.type('javax.servlet.MultipartConfigElement')
 const IOUtils = Java.type('org.apache.commons.io.IOUtils')

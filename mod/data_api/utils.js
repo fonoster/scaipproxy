@@ -2,10 +2,10 @@
  * @author Pedro Sanders
  * @since v1
  */
-const CoreUtils = require('@routr/core/utils')
-const FilesUtil = require('@routr/utils/files_util')
-const { Status } = require('@routr/core/status')
-const isEmpty = require('@routr/utils/obj_util')
+const CoreUtils = require('@scaipproxy/core/utils')
+const FilesUtil = require('@scaipproxy/utils/files_util')
+const { Status } = require('@scaipproxy/core/status')
+const isEmpty = require('@scaipproxy/utils/obj_util')
 const paginateArray = require('paginate-array')
 const flat = require('flat')
 const unflatten = require('flat').unflatten
@@ -163,11 +163,9 @@ class DSUtils {
   static getKind (obj) {
     if (
       !obj.kind ||
-      ['user', 'agent', 'peer', 'domain', 'gateway', 'number'].indexOf(
-        obj.kind.toLowerCase()
-      ) === -1
+      ['user', 'agent', 'peer', 'domain'].indexOf(obj.kind.toLowerCase()) === -1
     ) {
-      throw 'Not a valid entity. `kind` must be: User, Agent, Peer, Domain, Gateway, Number'
+      throw 'Not a valid entity. `kind` must be: User, Agent, Peer, Domain'
     }
     return obj.kind
   }

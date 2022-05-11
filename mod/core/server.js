@@ -2,18 +2,16 @@
  * @author Pedro Sanders
  * @since v1
  */
-const UsersAPI = require('@routr/data_api/users_api')
-const AgentsAPI = require('@routr/data_api/agents_api')
-const DomainsAPI = require('@routr/data_api/domains_api')
-const PeersAPI = require('@routr/data_api/peers_api')
-const GatewaysAPI = require('@routr/data_api/gateways_api')
-const NumbersAPI = require('@routr/data_api/numbers_api')
-const DSSelector = require('@routr/data_api/ds_selector')
-const Processor = require('@routr/core/processor/processor')
-const ContextStorage = require('@routr/core/context_storage')
-const showExternInfo = require('@routr/core/extern_info')
-const config = require('@routr/core/config_util')()
-const properties = require('@routr/core/server_properties')(config)
+const UsersAPI = require('@scaipproxy/data_api/users_api')
+const AgentsAPI = require('@scaipproxy/data_api/agents_api')
+const DomainsAPI = require('@scaipproxy/data_api/domains_api')
+const PeersAPI = require('@scaipproxy/data_api/peers_api')
+const DSSelector = require('@scaipproxy/data_api/ds_selector')
+const Processor = require('@scaipproxy/core/processor/processor')
+const ContextStorage = require('@scaipproxy/core/context_storage')
+const showExternInfo = require('@scaipproxy/core/extern_info')
+const config = require('@scaipproxy/core/config_util')()
+const properties = require('@scaipproxy/core/server_properties')(config)
 const ExceptionUtils = Java.type(
   'org.apache.commons.lang3.exception.ExceptionUtils'
 )
@@ -22,10 +20,6 @@ const NullAppender = Java.type('org.apache.log4j.varia.NullAppender')
 const System = Java.type('java.lang.System')
 const SipFactory = Java.type('javax.sip.SipFactory')
 const LogManager = Java.type('org.apache.logging.log4j.LogManager')
-// const LogOutputStream = Java.type('io.routr.core.LogOutputStream')
-// const OutputStream = Java.type('java.io.OutputStream')
-const PrintStream = Java.type('java.io.PrintStream')
-
 const LOG = LogManager.getLogger()
 const ANSI_GREEN = '\u001B[32m'
 const ANSI_YELLOW = '\u001B[33m'
@@ -42,8 +36,6 @@ class Server {
       UsersAPI: new UsersAPI(ds),
       AgentsAPI: new AgentsAPI(ds),
       DomainsAPI: new DomainsAPI(ds),
-      NumbersAPI: new NumbersAPI(ds),
-      GatewaysAPI: new GatewaysAPI(ds),
       PeersAPI: new PeersAPI(ds)
     }
 
@@ -130,7 +122,7 @@ class Server {
   }
 
   start () {
-    LOG.info('Starting Routr')
+    LOG.info('ScaipProxy')
     this.setup()
   }
 
